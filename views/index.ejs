@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/home.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>Crypto Currency Watcher</title>
+</head>
+
+<body>
+<div class="container">
+            <div class="col-sm-12">
+
+                <div class="bs-calltoaction bs-calltoaction-default">
+                    <div class="row">
+                        <div class="col-md-9 cta-contents">
+                            <h1 class="cta-title">KWEEK PAY</h1>
+                            <div class="cta-desc">
+                                <p>Remain Upto date with Bitcoin Rates</p>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3 cta-button">
+                            <a href="#" class="btn btn-lg btn-block btn-default">Crypto Currency Watcher</a>
+                        </div>
+                     </div>
+                </div>
+
+                <div class="bs-calltoaction bs-calltoaction-primary">
+                    <div class="row">
+                        <div class="col-md-9 cta-contents">
+                            <h1 class="cta-title">BITSTAMP</h1>
+                            
+                        </div>
+                        <div  class="col-md-3 cta-button">
+                            <a id="one" href="#" class="btn btn-lg btn-block btn-primary">Go for It!</a>
+                        </div>
+                     </div>
+                </div>
+
+                <div class="bs-calltoaction bs-calltoaction-info">
+                    <div class="row">
+                        <div class="col-md-9 cta-contents">
+                            <h1 class="cta-title">BITMEX</h1>
+                            
+                        </div>
+                        <div  class="col-md-3 cta-button">
+                            <a id="two" href="#" class="btn btn-lg btn-block btn-info">Go for It!</a>
+                        </div>
+                     </div>
+                </div>
+
+                <div class="bs-calltoaction bs-calltoaction-success">
+                    <div class="row">
+                        <div class="col-md-9 cta-contents">
+                            <h1 class="cta-title">BITFINEX</h1>
+                            
+                        </div>
+                        <div  class="col-md-3 cta-button">
+                            <a id="three" href="#" class="btn btn-lg btn-block btn-success">Go for It!</a>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+<!-- <script src="/js/crypto.js"></script> -->
+
+<script type="text/javascript">
+    (function (w, io)
+{
+   'use strict';
+  
+   let socket = io.connect('http://localhost:3000');
+
+   socket.on('connect', function ()
+   {
+      console.log('Connected from Client')
+   });
+
+    console.log();
+   function gebi (id){
+       return document.getElementById(id)
+   }
+
+   let coins = [gebi("one"), gebi("two"), gebi("three")];
+
+   socket.on('bitcoin', function (data)
+   {
+      coins[0].textContent = data.bitstamp || '';
+      coins[1].textContent = data.bitMex || '';
+      coins[2].textContent = data.bitfinex || '';
+   });
+
+
+}(window, io));
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "crypto-martket-watcher",
+  "version": "0.0.0",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "bitstamp-ws": "^0.1.1",
+    "body-parser": "^1.16.1",
+    "cookie-parser": "^1.4.3",
+    "crypto-socket": "^3.0.0",
+    "debug": "^3.0.0",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "morgan": "^1.8.2",
+    "request": "^2.83.0",
+    "serve-favicon": "^2.4.3",
+    "socket.io": "^2.0.4",
+    "yarn": "^1.3.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0"
+  }
+}

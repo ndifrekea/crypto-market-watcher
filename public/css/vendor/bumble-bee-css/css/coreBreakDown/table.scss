@@ -1,0 +1,403 @@
+//region vars
+$divider-color : #d7e0e0;
+$theme-highlight-color : rgba(218, 38, 255, 0.26);
+$theme-highlight-complement : #f1f1f1;
+
+$table-bg-color : #fff;
+
+$th-color : #fff;
+$th-text-color : #000;
+$thead-border-btm : 1px solid $divider-color;
+
+$td-bg-color : rgba(255, 255, 255, 0.32);
+$td-text-color : var(--menuTextColor);
+
+$row-hover-color : rgba(0, 254, 152, 0.75);
+$col-highlight-color : rgba(255, 255, 255, 0.24);
+$row-divider-color : $divider-color;
+$row-highlight-color : $theme-highlight-color;
+//endregion
+
+table
+{
+  border-collapse : collapse;
+  /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);*/
+  overflow        : hidden;
+  width           : calc(100%);
+  border          : none;
+  border-left     : none;
+  border-right    : none;
+
+  tfoot.buttonRow, table tr.footRow
+  {
+    background-color : var(--dialogFootColor);
+  }
+
+  tfoot.buttonRow
+  {
+    border-top : 1px solid $divider-color;
+    height     : 45px;
+    padding    : 7px;
+  }
+
+  tfoot tr.highlighted
+  {
+    background-color : unset;
+  }
+}
+
+.data-table
+{
+  thead
+  {
+    border-bottom : $thead-border-btm;
+  }
+
+  tbody
+  {
+    tr
+    {
+      background-color : $table-bg-color;
+      border-bottom    : 1px solid $row-divider-color;
+
+      &.highlighted
+      {
+        transition       : background-color .6s;
+        background-color : $row-highlight-color;
+      }
+
+      &:not(.noHov):hover
+      {
+        background-color : $row-hover-color;
+      }
+
+      &:hover > td.rowActions button
+      {
+        visibility : visible;
+      }
+    }
+  }
+
+  th, td
+  {
+    padding : 5px 10px;
+    color   : #000;
+    /*border-spacing: 0;*/
+
+    select
+    {
+      max-width : 150px;
+    }
+  }
+
+  th
+  { text-align          : left;
+    background-repeat   : no-repeat;
+    background-position : calc(100% - 10px) center;
+    border-right        : 1px solid $th-color;
+    border-left         : 1px solid $th-color;
+    background-color    : $th-color;
+    color               : $th-text-color;
+    font-weight         : 600;
+  }
+
+  td
+  {
+    height      : 30px;
+    font-weight : 400;
+
+    input, th input
+    {
+      margin : 0 5px !important;
+    }
+
+    &.ctr input, &.ctr th input
+    {
+      margin : 0 auto !important;
+    }
+  }
+
+  //region col highlighting hack
+  td
+  {
+    position : relative;
+
+    &:hover::before
+    {
+      content          : "";
+      position         : absolute;
+      left             : 0;
+      right            : 0;
+      top              : -9999px;
+      bottom           : -9999px;
+      z-index          : -1;
+      background-color : $col-highlight-color;
+    }
+  }
+  //endregion
+
+  &.padInner
+  {
+    td:not(.checkCol)
+    {
+      padding : 0;
+    }
+
+    td div:not(.checkbox)
+    {
+      padding : 5px 10px;
+    }
+  }
+
+  $row-sizes : (
+      "in-between" : 35,
+      "medium" : 40,
+      "large" : 50,
+      "x-large" : 60,
+      "xx-large" : 70,
+      "xxx-large" : 80
+  );
+
+  @each $class, $val in $row-sizes
+  {
+    &#{"."}#{$class} td
+    {
+      height : #{$val}px;
+    }
+  }
+
+  tr.expanded + .expandable
+  {
+    display : table-row;
+  }
+
+  .expandable
+  {
+    text-align    : left;
+    background    : #e8e8e8;
+    border-bottom : 5px solid var(--abacusBlue);
+    /*display: none;*/
+    z-index       : 500;
+  }
+
+
+}
+
+/*noHov = no hover bg*/
+.highlighted
+{
+  background-color : $row-highlight-color;
+}
+
+span.checksLabel
+{
+  margin-left : 10px;
+}
+
+th, td
+{
+  &.checkCol, &.check-col, &.revealer
+  {
+    width        : 39px !important;
+    padding      : 5px 3px;
+    border-right : 1px solid $row-divider-color;
+  }
+
+  &
+  {
+    &.revealer
+    {
+      border-right : none;
+      border-left  : 1px solid $row-divider-color;
+    }
+  }
+}
+
+$td-sizes : (
+    "short" : 150,
+    "mid-short" : 120,
+    "shorter" : 100,
+    "shortest" : 50
+);
+
+td
+{
+  @each $class, $val in $td-sizes
+  {
+    &#{"."}#{$class}
+    {
+      width : #{$val}px;
+    }
+  }
+
+  .row-actions
+  {
+    text-align : center;
+    padding    : 5px 5px;
+
+    button
+    {
+      min-width : unset !important;
+      width     : 25px !important;
+      height    : 25px !important;
+      padding   : 2px !important;
+      margin    : 0 5px !important;
+
+      &:not(.always-visible)
+      {
+        visibility : hidden;
+      }
+    }
+  }
+
+  &
+  {
+    &.no-rl-pad
+    {
+      padding : 5px 0;
+    }
+
+    &.small-rl-pad
+    {
+      padding : 5px 3px;
+    }
+
+    &.revealer
+    {
+      border-bottom       : 1px solid $row-divider-color;
+      background-image    : url("../css/images/dChevron2.png");
+      background-position : center;
+      background-repeat   : no-repeat;
+
+      div
+      {
+        background-color : #6b6b6b;
+        height           : 100%;
+        width            : 100%;
+      }
+
+      &:hover
+      {
+        background-color : #ffdf62;
+      }
+    }
+
+    &.r-chevron
+    {
+      background-image : url("../css/images/rChevron.png");
+      background-size  : 30px;
+    }
+  }
+}
+
+th
+{
+  &
+  {
+    &.pdr
+    {
+      padding-right : 30px;
+    }
+  }
+}
+
+.checkbox input
+{
+  display : none !important;
+}
+
+th .checkbox label::before, td .checkbox label::before
+{
+  background-color : var(--checkBoxBg);
+  border           : 1px solid $divider-color;
+  /*left: 30px !important;*/
+  top              : -15px;
+  margin           : 0 auto;
+}
+
+th .checkbox label::after, td .checkbox label::after
+{
+  left : 28px !important;
+  top  : -15px !important;
+}
+
+.checkbox input.someChecked[type="checkbox"] + label::after
+{
+  font-family : FontAwesome, sans-serif;
+  content     : "\f068" !important;
+  /*left: 33px !important;*/
+  left        : 29px !important;
+  /*top: -11px !important;*/
+}
+
+.checkbox label
+{
+  /*margin-left: 20px;*/
+}
+
+th .checkbox label, td .checkbox label
+{
+  margin-left : 0;
+}
+
+.sortableHead
+{
+  /*background-image: url("images/spinner.png");*/
+  background-image : url("images/dSpinner.png");
+}
+
+.sortable_sorted_reverse
+{
+  /*background-image: url("images/sortedASC.png");*/
+  background-image : url("images/dSortedASC.png");
+}
+
+.sortable_sorted
+{
+  /*background-image: url("images/sortedDESC.png");*/
+  background-image : url("images/dSortedDESC.png");
+}
+
+.hResizeThumb
+{
+  background-color : transparent;
+  position         : fixed;
+  cursor           : col-resize;
+}
+
+.hResizeThumb:hover
+{
+  background-color : #ccc;
+}
+
+/*region data tables*/
+//.data-table
+
+//.data-table
+
+table
+{
+  .expandable
+  {
+    .expandableFixtures
+    {
+      font-size : 1.2rem;
+      float     : right;
+
+      .resultWidget
+      {
+        float        : left;
+        margin-right : 20px;
+      }
+    }
+  }
+}
+
+
+.resultWidget
+{
+  margin-bottom : 1rem;
+}
+
+/*endregion*/
+
